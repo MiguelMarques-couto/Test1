@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorteadora!</title>
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff0000">
+
     <style>
         body{
             text-align: center;
-            
         }
         #butt-input{
-        display: flex;
-        flex-direction: column; 
-        align-items: center;    
-        gap: 18px;  
+            display: flex;
+            flex-direction: column; 
+            align-items: center;    
+            gap: 18px;  
         }
         input{
             border-radius: 60px;
@@ -28,42 +30,43 @@
             border-color: red;
         }
         button:hover{
-            border-color:green
+            border-color: green;
         }
     </style>
 </head>
 <body>
     <h1>Digite um número: </h1>
     <div id="butt-input" class="butt-input">
-    <input type="number" id="input" placeholder="Digite aqui: ">
-    <button id="button">VER RESULTADO</button>
+        <input type="number" id="input" placeholder="Digite aqui: ">
+        <button id="button">VER RESULTADO</button>
     </div>
     <p id="result"></p>
 
-<script>
-    const botao= document.getElementById("button");
-    let resultado= document.getElementById("result");
+    <script>
+        const botao= document.getElementById("button");
+        let resultado= document.getElementById("result");
 
-    botao.addEventListener("click",function(){
-       
-        
-        
-        let numero= document.getElementById("input").value;
-        if(numero===""){
-            alert("Digite um número válido!");
-        }else{
+        botao.addEventListener("click",function(){
+            let numero= document.getElementById("input").value;
+            if(numero===""){
+                alert("Digite um número válido!");
+            } else {
+                let sorteado1= Math.floor(Math.random()*10)+1;
+                let sorteado2= Math.floor(Math.random()*10)+1;
+                if(numero==sorteado1 || numero==sorteado2){
+                    resultado.innerHTML="Parabéns você acertou! Os números sorteados foram: "+sorteado1+" e "+sorteado2;
+                } else {
+                    resultado.innerHTML="Que pena, você errou! Os números sorteados foram: "+sorteado1+" e "+sorteado2;
+                }
+            }
+        });
 
-        let sorteado1= Math.floor(Math.random()*10)+1;
-        let sorteado2= Math.floor(Math.random()*10)+1;
-        if(numero==sorteado1 || numero==sorteado2){
-            resultado.innerHTML="Parabéns você acertou! Os números sorteados foram: "+sorteado1+" e "+sorteado2
-        }else{
-            resultado.innerHTML="Que pena, você errou! Os números sorteados foram: "+sorteado1+" e "+sorteado2
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js')
+            .then(() => console.log('Service Worker registrado!'))
+            .catch(() => console.log('Falha ao registrar Service Worker'));
         }
-    }
-
-    })
-</script>
-
+    </script>
 </body>
 </html>
